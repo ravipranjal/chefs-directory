@@ -4,17 +4,17 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <tag:layout>
-    	<form action="viewchefforaddress"> 
+    	<form action="updateforonechef"> 
 	    	<div class="form-group col-md-6">
-				<p><h5>Please select an address</h5></p>
-				<select name="address" id="address" class="form-control"> 
-					<option selected="selected">-- Select --</option>
+				<p><h5>Please select a chef to update</h5></p>
+				<label for="chefname">Chef Name:</label>
+				<select name="chefid" id="chefid" class="form-control"> 
+					<option selected="selected" value="-1">-- Select --</option>
 					<c:forEach items="${allchefs}" var="value">
-					<option><c:out value="${value.address}"/></option>
+					<option value="<c:out value="${value.id}"/>"><c:out value="${value.cname}"/></option>
 					</c:forEach>
 				</select>
-				<button type="submit" class="btn btn-primary">Show chefs</button>
+				<button type="submit" class="btn btn-primary">Update</button>
 			</div>
 		</form>
 </tag:layout>
-

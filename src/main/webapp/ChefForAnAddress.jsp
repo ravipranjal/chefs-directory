@@ -2,17 +2,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<html>
-    <head>
-        <title>Chef for address</title>
-    </head>
-    <body>
-    	
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<tag:layout>
     	<hr>
-    	The chef who lives at <b>${address}</b> is <b>${chef}.</b>
+    	<p><h5>The chef who lives at <b>${address}</b> is <b>${chef}.</b></h5></p>
     	<hr>
-
-		<a href="/">Home</a><br>
 		<a href="/getcheffromaddress">Back</a><br>
-    </body>
-</html>
+</tag:layout>

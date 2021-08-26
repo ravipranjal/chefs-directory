@@ -10,5 +10,10 @@ public class IndexController {
 	    public String index() {
 	        return "forward:/index.jsp";
 	    }
+	    
+	    @RequestMapping("/aboutus")
+	    public String aboutus() {
+	        return "aboutus.jsp";
+	    }
 	
 }

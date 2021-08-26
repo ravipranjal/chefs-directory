@@ -2,13 +2,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<html>
-    <head>
-        <title>All chefs</title>
-    </head>
-    <body>
-    	<hr>
-    	<h2> All Chefs </h2>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<tag:layout>
+    	<p><h5> All Chefs </h5></p>
     	<hr>
 		<table border="1">
 		  <thead>
@@ -38,6 +34,4 @@
 		    </c:forEach>
 		  </tbody>
 		</table>
-		<a href="/">Home</a><br>
-    </body>
-</html>
+</tag:layout>

@@ -23,94 +23,113 @@ public class ChefsController {
 	@Autowired ChefsInfoDao chefdao;
 	@Autowired DishInfoDao dishdao;
 		
-	@GetMapping("/create")
+	@GetMapping("/addChef")
 	public String Create() {
-		return "Create.jsp";
+		return "addChef.jsp";
 	}
 	
-	@RequestMapping("/createDB")
+	@RequestMapping("/addChefToDb")
 	public String CreateDB(HttpServletRequest request, Model model) {
 		ChefsInfo cc = new ChefsInfo();
 		cc.cname = request.getParameter("chefname");
 		cc.address = request.getParameter("address");
 		cc.phone = request.getParameter("phone");
+		model.addAttribute("back", "/addChef");
+		if(cc.phone.length()!=10) { 
+			model.addAttribute("msg","phone number incorrect");
+			return "failed.jsp";
+		}
+			
 		boolean success = chefdao.CreateChef(cc);
-		model.addAttribute("back", "/create");
-		if(success) return "success.jsp";
-		else return "failed.jsp";
+		if(success) {
+			model.addAttribute("msg","successfully added chef "+cc.cname);
+			return "success.jsp";
+		}
+		else {
+			model.addAttribute("msg","failed to add, check your input.");
+			return "failed.jsp";
+		}
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteChef")
 	public String Delete(Model model) {
 		List<ChefsInfo> allchefs = chefdao.GetAllChefs();
 		model.addAttribute("allchefs",allchefs);
 		model.addAttribute("selected",allchefs.get(0));		
-		return "Delete.jsp";
+		return "delete.jsp";
 	}
 	
 	@RequestMapping("/viewdetails")
 	public String ViewDetails(HttpServletRequest request, Model model) {
-		String chefname = request.getParameter("chefname");
-		if(chefname.equals("-- Select --")) return "/delete";
-		int len = chefname.length();
-		int id=0,mul=1;
-		for(int i=len-1;i>=0;i--) {
-			char c = chefname.charAt(i);
-			if(c-'0'<0 || c-'0'>9) break;
-			id = mul*(c-'0')+id;
-			mul = mul*10;
+		int id = Integer.parseInt(request.getParameter("chefid"));
+		if(id==-1) {
+			model.addAttribute("msg","chef not selected");
+			model.addAttribute("back","/deleteChef");
+			return "failed.jsp";
 		}
 		ChefsInfo ci = chefdao.QueryOneChef(id);
 		model.addAttribute("chef",ci);
-		return "ViewDetailsDelete.jsp";
+		return "viewDetailsDelete.jsp";
 	}
 	
 	
-	@RequestMapping("/deleteDB")
+	@RequestMapping("/deleteChefFromDb")
 	public String DeleteDB(HttpServletRequest request,Model model) {
 		int id = Integer.valueOf(request.getParameter("id"));
+		boolean dishdel = dishdao.DeleteDishByCid(id);
 		boolean success = chefdao.DeleteChef(id);
-		model.addAttribute("back", "/delete");
-		if(success) return "success.jsp";
-		else return "failed.jsp";
+		model.addAttribute("back", "/deleteChef");
+		if(success) {
+			model.addAttribute("msg","successfully deleted");
+			return "success.jsp";
+		}
+		else {
+			model.addAttribute("msg","could not delete");
+			return "failed.jsp";
+		}
 	}
 	
-	@RequestMapping("/update")
+	@RequestMapping("/updateChef")
 	public String Update(Model model) {
 		List<ChefsInfo> allchefs = chefdao.GetAllChefs();
 		model.addAttribute("allchefs",allchefs);
-		model.addAttribute("selected",allchefs.get(0));
-		return "Update.jsp";
+		return "updateChef.jsp";
 	}
 	
 	@RequestMapping("/updateforonechef")
 	public String UpdateForOne(HttpServletRequest request, Model model) {
-		String chefname = request.getParameter("chefname");
-		if(chefname.equals("-- Select --")) return "/update";
-		int len = chefname.length();
-		int id=0,mul=1;
-		for(int i=len-1;i>=0;i--) {
-			char c = chefname.charAt(i);
-			if(c-'0'<0 || c-'0'>9) break;
-			id = mul*(c-'0')+id;
-			mul = mul*10;
+		int id = Integer.parseInt(request.getParameter("chefid"));
+		if(id==-1) {
+			model.addAttribute("msg","chef not selected");
+			model.addAttribute("back","/updateChef");
+			return "failed.jsp";
 		}
 		ChefsInfo ci = chefdao.QueryOneChef(id);
 		model.addAttribute("chef",ci);
-		return "UpdateOneChef.jsp";
+		return "updateOneChef.jsp";
 	}
 	
-	@RequestMapping("/updateDB")
+	@RequestMapping("/updateChefInDb")
 	public String UpdateDB(HttpServletRequest request, Model model) {
 		ChefsInfo cc = new ChefsInfo();
 		cc.id = Integer.valueOf(request.getParameter("id"));
 		cc.cname = request.getParameter("chefname");
 		cc.address = request.getParameter("address");
 		cc.phone = request.getParameter("phone");
-		model.addAttribute("back", "/update");
+		model.addAttribute("back", "/updateChef");
+		if(cc.phone.length()!=10) { 
+			model.addAttribute("msg","phone number incorrect");
+			return "failed.jsp";
+		}
 		boolean success = chefdao.UpdateChef(cc);
-		if(success) return "success.jsp";
-		else return "failed.jsp";
+		if(success) {
+			model.addAttribute("msg","successfully updated");
+			return "success.jsp";
+		}
+		else {
+			model.addAttribute("msg","check the values");
+			return "failed.jsp";
+		}
 	}
 	
 	@RequestMapping("/cheffromaddress")
@@ -122,24 +141,29 @@ public class ChefsController {
 	public String GetAll(Model model) {
 		List<ChefsInfo> allchefs = chefdao.GetAllChefs();
 		model.addAttribute("allchefs",allchefs);
-		return "ViewAll.jsp";
+		return "viewAllChefs.jsp";
 	}
 	
 	@RequestMapping("/getcheffromaddress")
 	public String ListChefsForDishes(Model model) {
 		List<ChefsInfo> allchefs =  chefdao.GetAllChefs();
 		model.addAttribute("allchefs",allchefs);
-		return "ChefFromAddress.jsp";
+		return "chefFromAddress.jsp";
 	}
 	
 	
 	@RequestMapping("/viewchefforaddress")
 	public String ListChefsForDishes(HttpServletRequest request, Model model) {
 		String address = request.getParameter("address");
+		if(address.equals("-- Select --")) {
+			model.addAttribute("msg","address not selected");
+			model.addAttribute("back","/getcheffromaddress");
+			return "failed.jsp";
+		}
 		ChefsInfo ci =  chefdao.GetChefFromAddress(address);
 		model.addAttribute("chef",ci.cname);
 		model.addAttribute("address",address);
-		return "ChefForAnAddress.jsp";
+		return "chefForAnAddress.jsp";
 	}
 	
 }

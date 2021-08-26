@@ -4,6 +4,11 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <tag:layout>
-	<h3 class="text-danger"> Failed: <c:out value="${msg}"/> </h3>
-	<a href="<c:out value="${back}"/>">Back</a>
+<p></p>
+<blockquote class="blockquote text-center">
+  <p class="mb-0">Welcome to CSCE-310, Database Systems.</p>
+</blockquote>
+
+<img src="databases.png" alt="DB Image" class="img-fluid">
+
 </tag:layout>

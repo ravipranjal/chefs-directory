@@ -2,27 +2,31 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<html>
-    <head>
-        <title>Update</title>
-    </head>
-    <body>
-    	<form action="updateDB"> 
-	    	<div>
-				<h2>Modify and click update </h2>
-				<label for="id">Id:</label>
-				<input type="text" name="id" value="<c:out value="${chef.id}"/>" id="id" readonly="readonly" />
-				<label for="chefname">Chef Name:</label>
-				<input type="text" name="chefname" value="<c:out value="${chef.cname}"/>" id="chefname" readonly="readonly" />				
-				<label for="address">Address:</label>
-				<input type="text" name="address" value="<c:out value="${chef.address}"/>" id="address">
-				<label for="phone">Phone:</label>
-				<input type="text" name="phone" value="<c:out value="${chef.phone}"/>" id="phone">
-				<input type="submit" value="Update">
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<tag:layout>
+    	<form action="updateChefInDb"> 
+	    	<div class="form-group">
+				<p><h5>Modify and click update </h2></p>
+				<div class="form-group">
+				<label for="id" class="col-form-label">Id</label>
+				<input class="form-control" type="text" name="id" value="<c:out value="${chef.id}"/>" id="id" readonly="readonly" />
+				</div>
+				<div class="form-group">
+				<label for="chefname" class="col-form-label">Chef Name</label>
+				<input class="form-control" type="text" name="chefname" value="<c:out value="${chef.cname}"/>" id="chefname" readonly="readonly" />
+				</div>
+				<div class="form-group">				
+				<label for="address" class="col-form-label">Address</label>
+				<input class="form-control" type="text" name="address" value="<c:out value="${chef.address}"/>" id="address" required>
+				</div>
+				<div class="form-group">
+				<label for="phone" class="col-form-label">Phone</label>
+				<input class="form-control" type="number" name="phone" value="<c:out value="${chef.phone}"/>" id="phone" required>
+				<small id="phone help" class="form-text text-muted">Phone number should be 10 digits without special characters</small>
+			
+				</div>
+				<button type="submit" class="btn btn-primary">Update</button>
 			</div>
 		</form>
-		<hr>
-		<a href="/"> Home </a> <br>
-		<a href="/update"> Back </a>
-    </body>
-</html>
+	<a href="/updateChef"> Back </a>
+</tag:layout>

@@ -2,27 +2,28 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<html>
-    <head>
-        <title>Delete</title>
-    </head>
-    <body>
-    	<form action="deleteDB"> 
-	    	<div>
-				<h2>Press delete to delete</h2>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<tag:layout>
+    	<form action="deleteChefFromDb"> 
+	    	<div class="form-group">
+				<div class="form-group">
 				<label for="id">Id:</label>
-				<input type="text" name="id" value="<c:out value="${chef.id}"/>" id="id" readonly="readonly" />
+				<input class="form-control" type="text" name="id" value="<c:out value="${chef.id}"/>" id="id" readonly="readonly" />
+				</div>
+				<div class="form-group">
 				<label for="chefname">Chef Name:</label>
-				<input type="text" name="chefname" value="<c:out value="${chef.cname}"/>" id="chefname" readonly="readonly" />				
+				<input class="form-control" type="text" name="chefname" value="<c:out value="${chef.cname}"/>" id="chefname" readonly="readonly" />
+				</div>
+				<div class="form-group">				
 				<label for="address">Address:</label>
-				<input type="text" name="address" value="<c:out value="${chef.address}"/>" id="address" readonly="readonly">
+				<input class="form-control" type="text" name="address" value="<c:out value="${chef.address}"/>" id="address" readonly="readonly">
+				</div>
+				<div class="form-group">
 				<label for="phone">Phone:</label>
-				<input type="text" name="phone" value="<c:out value="${chef.phone}"/>" id="phone" readonly="readonly">
-				<input type="submit" value="Delete">
+				<input class="form-control" type="text" name="phone" value="<c:out value="${chef.phone}"/>" id="phone" readonly="readonly">
+				</div>
+				<button type="submit" class="btn btn-primary">Delete</button>
 			</div>
 		</form>
-		<hr>
-		<a href="/"> Home </a> <br>
-		<a href="/delete"> Back </a>
-    </body>
-</html>
+		<a href="/deleteChef"> Back </a>
+</tag:layout>

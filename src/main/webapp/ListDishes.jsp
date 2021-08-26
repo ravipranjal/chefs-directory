@@ -2,26 +2,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<html>
-    <head>
-        <title>All Dishes</title>
-    </head>
-    <body>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<tag:layout>
     	<form action="listchefsfordish"> 
-	    	<div>
-				<h2>Please select a dish and press Show chefs</h2>
+	    	<div class="form-group">
+				<p><h5>Please select a dish:</h5></p>
 				<label for="dishname">Dish:</label>
-				<select name="dishname" id="dishname"> 
+				<select name="dishname" id="dishname" class="form-control"> 
 					<option selected="selected">-- Select --</option>
 					<c:forEach items="${alldishes}" var="value">
 					<option><c:out value="${value.dname}"/></option>
 					</c:forEach>
 				</select>
-				<input type="submit" value="Show chefs">
-				
+				<button type="submit" class="btn btn-primary">Show chefs</button>
 			</div>
 		</form>
-		<hr>
-		<a href="/">Home</a>
-    </body>
-</html>
+</tag:layout>

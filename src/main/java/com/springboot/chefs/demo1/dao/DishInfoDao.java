@@ -17,8 +17,19 @@ public class DishInfoDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public boolean CreateDish(DishInfo di) {
-		return true;
+	public boolean CreateDish(DishInfo dish) {
+		try {
+			//INSERT INTO chefs1."Dish"(dname, ddetail , cid) VALUES ('hdjsdk','jdsds',1);
+			if(dish.dname.length()==0 || dish.ddetail.length()==0)
+				return false;
+			String cmd = String.format("INSERT INTO chefs1.\"Dish\"(dname, ddetail, cid)"
+					+ "	VALUES ('%s','%s','%d');",dish.dname,dish.ddetail,dish.cid);
+			jdbcTemplate.execute(cmd);
+			return true;
+		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 	
 	public List<ChefDish> GetChefFromDish(String dishname) {
@@ -32,7 +43,7 @@ public class DishInfoDao {
 			List<ChefDish> allchefs = jdbcTemplate.query(cmd, new ChefDishMapper());
 			return allchefs;
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 			return new ArrayList<ChefDish>();
 		}
 	}
@@ -59,6 +70,40 @@ public class DishInfoDao {
 		} catch(Exception e) {
 //			System.out.println(e.getMessage());
 			return new ArrayList<DishInfo>();
+		}
+	}
+	
+	public DishInfo QueryOneDish(int id) {
+		try {
+			String cmd = String.format("SELECT id,dname,ddetail,cid FROM chefs1.\"Dish\" WHERE id=%d ORDER BY dname ASC ;",id);
+			List<DishInfo> alldishes = jdbcTemplate.query(cmd, new DishMapper());
+			return alldishes.get(0);
+		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public boolean UpdateDish(DishInfo dish) {
+		try {
+			String cmd = String.format("UPDATE chefs1.\"Dish\" SET	dname='%s', ddetail='%s', cid='%d' "
+					+ "WHERE id=%d",dish.dname,dish.ddetail,dish.cid,dish.id);
+			jdbcTemplate.execute(cmd);
+			return true;
+		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean DeleteDishByCid(int cid) {
+		try {
+			String cmd = String.format("DELETE FROM chefs1.\"Dish\" WHERE	cid=%d",cid);
+			jdbcTemplate.execute(cmd);
+			return true;
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
 	}
 		
