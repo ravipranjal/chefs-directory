@@ -40,15 +40,15 @@ To set up postgres, on the psql command line execute the following commands:
 
 For Eclipse:
 - File > Import > Existing Gradle Project > Select Project  Directory
-Once it opens the project
-Compile and run
-Open localhost:8080 to view your application
+- Once it opens the project
+- Compile and run
+- Open localhost:8080 to view your application
 
 For IntelliJ:
 - File > Open > Select Project Directory
-Once it opens, it will automatically build
-After it compiles, just run the app
-Open localhost:8080 to view your application
+- Once it opens, it will automatically build
+- After it compiles, just run the app
+- Open localhost:8080 to view your application
 
 - Open the Application
 - Add a few chefs and then a few dishes
