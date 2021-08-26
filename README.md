@@ -50,6 +50,6 @@ Once it opens, it will automatically build
 After it compiles, just run the app
 Open localhost:8080 to view your application
 
->> Open the Application
->> Add a few chefs and then a few dishes
+- Open the Application
+- Add a few chefs and then a few dishes
 
