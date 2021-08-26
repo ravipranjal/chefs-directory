@@ -8,11 +8,11 @@ Setting up Postgres
 - Create tables "ChefsInfo" and "Dish"
 
 To set up postgres, on the psql command line execute the following commands:
->> CREATE DATABASE chefs WITH OWNER = postgres ENCODING = 'UTF8' CONNECTION LIMIT = -1;
->> \c chefs
->> CREATE SCHEMA chefs1  AUTHORIZATION postgres;
->>[optional] \dn to see all schemas
->> CREATE TABLE chefs1."ChefsInfo"
+- CREATE DATABASE chefs WITH OWNER = postgres ENCODING = 'UTF8' CONNECTION LIMIT = -1;
+- \c chefs
+- CREATE SCHEMA chefs1  AUTHORIZATION postgres;
+- [optional] \dn to see all schemas
+- CREATE TABLE chefs1."ChefsInfo"
 (
     id integer NOT NULL,
     cname character varying(60)[] NOT NULL,
@@ -20,11 +20,9 @@ To set up postgres, on the psql command line execute the following commands:
     phone character varying(10)[] NOT NULL,
     PRIMARY KEY (id)
 );
-
->> ALTER TABLE chefs1."ChefsInfo"
+- ALTER TABLE chefs1."ChefsInfo"
     OWNER to postgres;
-
->>CREATE TABLE chefs1."Dish"
+- CREATE TABLE chefs1."Dish"
 (
     id integer NOT NULL,
     dname character varying(60)[] NOT NULL,
@@ -37,8 +35,7 @@ To set up postgres, on the psql command line execute the following commands:
         ON DELETE NO ACTION
         NOT VALID
 );
-
->> ALTER TABLE chefs1."Dish"
+- ALTER TABLE chefs1."Dish"
     OWNER to postgres;
 
 For Eclipse:
