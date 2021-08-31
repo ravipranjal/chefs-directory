@@ -40,6 +40,8 @@ To set up postgres, on the psql command line execute the following commands:
     OWNER to postgres;
 ---------------------------------------------------------------------------------------
 For Eclipse:
+- Go to Eclipse marketplace fron help menu and install Spring
+- Restart Eclipse
 - File > Import > Existing Gradle Project > Select Project  Directory
 - Once it opens the project
 - Compile and run
@@ -48,7 +50,7 @@ For Eclipse:
 For IntelliJ:
 - File > Open > Select Project Directory
 - Once it opens, it will automatically build
-- After it compiles, just run the app
+- After compilation, just run the app
 - Open localhost:8080 to view your application
 ---------------------------------------------------------------------------------------
 - Open the Application
